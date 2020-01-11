@@ -4,18 +4,13 @@ import Clock from '../components/Clock'
 import Menu from '../components/Menu'
 
 export default function ManagerContainer() {
-  const [count, setCount] = useState(0)
-
-  const angle = count * 6
-
-  function updateTimer() {
-    setCount(count + 1)
-  }
+  const [timer, setTimer] = useState(0)
 
   return (
-    <Background updateTimer={updateTimer}>
-      <Menu start={() => console.log('start pressed')} stop={() => console.log('stop pressed')}/>
-      <Clock angle={angle} />
+    <Background>
+      <Menu start={() => console.log('start pressed')} stop={() => console.log('stop pressed')} />
+      <Clock getTime={(time) => setTimer(time)} />
+      <div style={{ position: 'fixed', left: 20, top: 100, color: 'white' }}>{timer}</div>
     </Background>
   )
 }
