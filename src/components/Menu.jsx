@@ -21,19 +21,12 @@ const styles = makeStyles({
   }
 })
 
-
-export default function Menu(props) {
+export default function Menu({ gameInProgress, toggleGame }) {
   const classes = styles()
-
-  function decorator(event, func) {
-    event.stopPropagation()
-    func()
-  }
 
   return (
     <div className={classes.menuWrapper}>
-      <button className={classes.button} onClick={event => decorator(event, props.start)}>Start</button>   
-      <button className={classes.button} onClick={event => decorator(event, props.start)}>Stop</button>
+      <button className={classes.button} onClick={toggleGame}>{ gameInProgress ? 'Stop' : 'Start' }</button>
     </div>
   )
 }
