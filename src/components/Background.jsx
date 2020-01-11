@@ -9,7 +9,8 @@ const useStyles = makeStyles({
     height: '100vh',
     backgroundColor: '#000',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    overflow: 'hidden'
   },
   text: {
     position: 'absolute',

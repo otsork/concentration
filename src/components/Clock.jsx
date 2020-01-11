@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/styles'
 
+import { getStepsToBeSkipped } from '../utils/helpers'
+
 const useStyles = makeStyles({
   clockDial: {
     height: '90vh',
     width: '90vh',
     borderRadius: '50%',
+    border: '1px solid yellow'
   },
   dot: {
     position: 'absolute',
@@ -15,32 +18,51 @@ const useStyles = makeStyles({
     height: '2vh',
     backgroundColor: 'white',
     borderRadius: '50%',
+  },
+  dotGreen: {
+    backgroundColor: 'green'
   }
 })
 
-export default function Clock(props) {
+/*
+When ready, refactor so that "timer" and "userShouldReact"
+and "skipSteps" states are held in the ManagerContainer
+*/
+
+export default function Clock({ setVisualTimer, duration, addHit, addMiss }) {
   const [timer, setTimer] = useState(0)
+  const [skipSteps, setSkipSteps] = useState([5, 10, 15, 20, 25, 30, 35, 40, 45])
+  const [userShouldReact, setUserShouldReact] = useState(false)
   const classes = useStyles()
 
+  // useEffect(() => setSkipSteps(getStepsToBeSkipped(duration)), [])
   useEffect(() => {
-    let timerId = setInterval(() => updateTimer(), 1000)
-    return function cleanup() {
-      clearInterval(timerId)
+    async function flashReactionWindow() {
+      setUserShouldReact(true)
+      setTimeout(() => setUserShouldReact(false), 1500)
     }
-  })
+    function skipStep() {
+      setTimer(timer + 2)
+      flashReactionWindow()
+    }
+    function updateTimer() {
+      if (skipSteps.includes(timer + 1)) skipStep()
+      else setTimer(timer + 1)
+    }
+    let second = setInterval(() => updateTimer(), 1000)
+    return function cleanup() {
+      clearInterval(second)
+    }
+  }, [timer, skipSteps])
 
-  function updateTimer() {
-    setTimer(timer + 1)
-  }
+  const calcaulateAngle = timer * 6
 
-  const angle = timer * 6
-  function callback(time) {
-    props.getTime(time)
-  }
-  callback(timer)
+  setVisualTimer(timer)
+
+  // ADD EVENT LISTENER FOR SPACE KEY AND HANDLE HITS AND MISSES
   return (
-    <div style={{ transform: `rotate(${angle}deg)` }} className={classes.clockDial}>
-      <div className={classes.dot} />
+    <div style={{ transform: `rotate(${calcaulateAngle}deg)` }} className={classes.clockDial}>
+      <div className={`${classes.dot} ${userShouldReact && classes.dotGreen}`} />
     </div>
   )
 }

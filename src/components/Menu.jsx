@@ -1,17 +1,16 @@
 import React from 'react'
+import { makeStyles } from '@material-ui/styles'
 
-export default function Menu(props) {
-  // temporary styles until material-ui/styles is being used
-  const temporaryWrapperStyles = {
+const styles = makeStyles({
+  menuWrapper: {
     display: 'flex',
     position: 'fixed',
     top: '0',
     height: '20px',
     width: '100%',
     justifyContent: 'space-between'
-  }
-
-  const tempButtonStyles = {
+  },
+  button: {
     display: 'flex',
     width: 100,
     height: 30,
@@ -20,16 +19,15 @@ export default function Menu(props) {
     justifyContent: 'center',
     marginTop: '16px'
   }
+})
 
-  function decorator(event, func) {
-    event.stopPropagation()
-    func()
-  }
+
+export default function Menu({ gameInProgress, toggleGame }) {
+  const classes = styles()
 
   return (
-    <div style={temporaryWrapperStyles}>
-      <button style={tempButtonStyles} onClick={event => decorator(event, props.start)}>Start</button>   
-      <button style={tempButtonStyles} onClick={event => decorator(event, props.start)}>Stop</button>
+    <div className={classes.menuWrapper}>
+      <button className={classes.button} onClick={toggleGame}>{ gameInProgress ? 'Stop' : 'Start' }</button>
     </div>
   )
 }
