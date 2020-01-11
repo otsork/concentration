@@ -3,7 +3,6 @@ import Background from '../components/Background'
 import Clock from '../components/Clock'
 import Menu from '../components/Menu'
 
-
 export default function ManagerContainer() {
   const [visualTimer, setVisualTimer] = useState(0)
   const [gameInProgress, setGameInProgress] = useState(false)

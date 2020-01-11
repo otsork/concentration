@@ -21,7 +21,6 @@ const styles = makeStyles({
   }
 })
 
-
 export default function Menu({ gameInProgress, toggleGame }) {
   const classes = styles()
 
