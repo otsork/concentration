@@ -5,14 +5,14 @@ import Menu from '../components/Menu'
 
 
 export default function ManagerContainer() {
-  const [count, setCount] = useState(0)
+  const [timer, setTimer] = useState(0)
 
-  const angle = count * 6
   return (
-    <div>
-      <Background text='text, just to show how props work in functional components' updateTimer={() => setCount(count + 1)}>
-      <Clock angle={angle} />
-      </Background>
-    </div>
+    <Background>
+      <Menu start={() => console.log('start pressed')} stop={() => console.log('stop pressed')} />
+      <Clock getTime={(time) => setTimer(time)} />
+      <div style={{ position: 'fixed', left: 20, top: 100, color: 'white' }}>{timer}</div>
+    </Background>
+
   )
 }
