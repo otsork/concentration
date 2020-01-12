@@ -14,6 +14,8 @@ export default function ManagerContainer() {
 
   if (visualTimer === durationInSeconds) setGameInProgress(false)
 
+  console.log('hits: ', hits)
+  console.log('misses: ', misses)
   return (
     <Background>
       <Menu
@@ -21,6 +23,7 @@ export default function ManagerContainer() {
         toggleGame={() => setGameInProgress(!gameInProgress)} />
       { gameInProgress &&
         <Clock
+          gameInProgress={gameInProgress}
           duration={durationInSeconds}
           setVisualTimer={(time) => setVisualTimer(time)}
           addHit={() => setHits(hits + 1)}

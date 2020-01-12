@@ -17,7 +17,15 @@ const styles = makeStyles({
     fontSize: 20,
     zIndex: 999,
     justifyContent: 'center',
-    marginTop: '16px'
+    marginTop: '16px',
+  },
+  buttonDark: {
+    backgroundColor: 'black',
+    color: '#1F2633',
+    border: '1px solid #1F2633',
+    '&:focus': {
+      outline: 'none'
+    }
   }
 })
 
@@ -26,7 +34,7 @@ export default function Menu({ gameInProgress, toggleGame }) {
 
   return (
     <div className={classes.menuWrapper}>
-      <button className={classes.button} onClick={toggleGame}>{ gameInProgress ? 'Stop' : 'Start' }</button>
+      <button className={`${classes.button} ${gameInProgress && classes.buttonDark}`} onClick={toggleGame}>{ gameInProgress ? 'Stop' : 'Start' }</button>
     </div>
   )
 }
