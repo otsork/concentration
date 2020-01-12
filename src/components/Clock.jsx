@@ -37,7 +37,7 @@ and "skipSteps" states are held in the ManagerContainer
 */
 
 export default function Clock({ 
-  gameInProgress, setVisualTimer, duration, addHit, addMiss
+  gameInProgress, setVisualTimer, duration, addHit, addMiss, endGame
 }) {
   const [clickBlocked, setClickBlocked] = useState(false)
   const [timer, setTimer] = useState(0)
@@ -76,7 +76,8 @@ export default function Clock({
     }
   }
 
-  setVisualTimer(timer)
+  if (timer >= duration) endGame()
+
   return (
     <div className={classes.wrapper} onClick={handleClick}>
       <div
