@@ -4,11 +4,18 @@ import { makeStyles } from '@material-ui/styles'
 import { getStepsToBeSkipped } from '../utils/helpers'
 
 const useStyles = makeStyles({
+  wrapper: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: '50px'
+  },
   clockDial: {
     height: '90vh',
     width: '90vh',
-    borderRadius: '50%',
-    border: '1px solid yellow'
+    // borderRadius: '50%',
+    // border: '1px solid yellow'
   },
   dot: {
     position: 'absolute',
@@ -29,7 +36,10 @@ When ready, refactor so that "timer" and "userShouldReact"
 and "skipSteps" states are held in the ManagerContainer
 */
 
-export default function Clock({ setVisualTimer, duration, addHit, addMiss }) {
+export default function Clock({ 
+  gameInProgress, setVisualTimer, duration, addHit, addMiss, endGame
+}) {
+  const [clickBlocked, setClickBlocked] = useState(false)
   const [timer, setTimer] = useState(0)
   const [skipSteps, setSkipSteps] = useState([5, 10, 15, 20, 25, 30, 35, 40, 45])
   const [userShouldReact, setUserShouldReact] = useState(false)
@@ -55,14 +65,26 @@ export default function Clock({ setVisualTimer, duration, addHit, addMiss }) {
     }
   }, [timer, skipSteps])
 
-  const calcaulateAngle = timer * 6
+  const calculateAngle = timer * 6
 
-  setVisualTimer(timer)
+  const handleClick = () => {
+    if (!clickBlocked) {
+      if (userShouldReact) addHit()
+      else addMiss()
+      setClickBlocked(true)
+      setTimeout(() => setClickBlocked(false), 1500)
+    }
+  }
 
-  // ADD EVENT LISTENER FOR SPACE KEY AND HANDLE HITS AND MISSES
+  if (timer >= duration) endGame()
+
   return (
-    <div style={{ transform: `rotate(${calcaulateAngle}deg)` }} className={classes.clockDial}>
-      <div className={`${classes.dot} ${userShouldReact && classes.dotGreen}`} />
+    <div className={classes.wrapper} onClick={handleClick}>
+      <div
+        style={{ transform: `rotate(${calculateAngle}deg)` }}
+        className={classes.clockDial}>
+        <div className={`${classes.dot} ${userShouldReact && classes.dotGreen}`} />
+      </div>
     </div>
   )
 }
