@@ -1,14 +1,31 @@
 import React from 'react'
-// import @material-ui/styles
+import { makeStyles } from '@material-ui/styles'
 
-// define variable styles and assign it
+
+const useStyles = makeStyles ({
+  results: {
+    width: '50%',
+    height: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white'
+  }
+})
 
 // this is the last amount of code for a JSX functional component. A function that returns a div
-export default function GameResults() {
+export default function GameResults(props) {
   // define variable that refers to classes and assign it to refer to style object above
+  const classes = useStyles()
+  const displayHits = `Number of hits: ${props.hits}`
+  const displayMisses = `Number of misses: ${props.misses}`
+
   return (
-    <div>
-      {/* add elements and give them styles, remove curly braces, as they are only needed for this comment */}
+    <div className={classes.results}>
+      <div>
+        <p>{displayHits}</p>
+        <p>{displayMisses}</p>
+      </div>
     </div>
   )
 }

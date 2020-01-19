@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
+import * as colors from '../constants/colors.js'
 
 const styles = makeStyles({
   menuWrapper: {
@@ -20,9 +21,10 @@ const styles = makeStyles({
     marginTop: '16px',
   },
   buttonDark: {
-    backgroundColor: 'black',
-    color: '#1F2633',
-    border: '1px solid #1F2633',
+    backgroundColor: colors.black,
+    color: colors.darkBlue,
+    border: '1px solid',
+    borderColor: colors.darkBlue,
     '&:focus': {
       outline: 'none'
     }
