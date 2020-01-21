@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/styles'
+import * as colors from '../constants/colors.js'
 
 import { getStepsToBeSkipped } from '../utils/helpers'
 
@@ -23,11 +24,11 @@ const useStyles = makeStyles({
     left: '49.5%',
     width: '2vh',
     height: '2vh',
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderRadius: '50%',
   },
   dotGreen: {
-    backgroundColor: 'green'
+    backgroundColor: colors.green
   }
 })
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
+import * as colors from '../constants/colors.js'
 
 const useStyles = makeStyles({
   background: {
@@ -7,7 +8,7 @@ const useStyles = makeStyles({
     position: 'relative',
     width: '100vw',
     height: '100vh',
-    backgroundColor: '#000',
+    backgroundColor: colors.black,
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden'
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
     position: 'absolute',
     top: '50%',
     left: '40%',
-    color: 'white',
+    color: colors.white,
     transition: 'transform 100ms', 
     '&:hover': {
       transform: 'scale(1.5)'
