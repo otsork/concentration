@@ -23,8 +23,8 @@ const styles = makeStyles({
   buttonDark: {
     backgroundColor: colors.black,
     color: colors.darkBlue,
-    border: '1px solid',
-    borderColor: colors.darkBlue,
+    border: `1px solid ${colors.darkBlue}`,
+    // borderColor: colors.darkBlue,
     '&:focus': {
       outline: 'none'
     }

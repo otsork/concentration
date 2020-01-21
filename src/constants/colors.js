@@ -1,16 +1,8 @@
 
-const colors = {
-  black: '#000',
-  white: '#FFFFFF',
-  green: '#008000', 
-  darkBlue: '#1F2633'
-}
-
-
-export const black = colors.black;
-export const white = colors.white;
-export const green = colors.green;
-export const darkBlue = colors.darkBlue;
+export const black = '#000';
+export const white = '#FFFFFF';
+export const green = '#008000';
+export const darkBlue = '#1F2633';
 
 
 
