@@ -24,7 +24,6 @@ const styles = makeStyles({
     backgroundColor: colors.black,
     color: colors.darkBlue,
     border: `1px solid ${colors.darkBlue}`,
-    // borderColor: colors.darkBlue,
     '&:focus': {
       outline: 'none'
     }
