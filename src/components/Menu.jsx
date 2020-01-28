@@ -5,20 +5,18 @@ import * as colors from '../constants/colors.js'
 const styles = makeStyles({
   menuWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
     position: 'fixed',
-    top: '0',
-    height: '20px',
-    width: '100%',
-    justifyContent: 'space-between'
+    top: '10px',
+    left: '10px',
   },
   button: {
     display: 'flex',
-    width: 100,
-    height: 30,
-    fontSize: 20,
-    zIndex: 999,
     justifyContent: 'center',
-    marginTop: '16px',
+    width: '100px',
+    height: '30px',
+    fontSize: '20px',
+    zIndex: 999,
   },
   buttonDark: {
     backgroundColor: colors.black,
@@ -30,12 +28,17 @@ const styles = makeStyles({
   }
 })
 
-export default function Menu({ gameInProgress, toggleGame }) {
+export default function Menu(props) {
   const classes = styles()
+  const { testRunning, toggleTestRunning } = props
 
   return (
     <div className={classes.menuWrapper}>
-      <button className={`${classes.button} ${gameInProgress && classes.buttonDark}`} onClick={toggleGame}>{ gameInProgress ? 'Stop' : 'Start' }</button>
+      <button
+        className={`${classes.button} ${testRunning && classes.buttonDark}`} 
+        onClick={toggleTestRunning}>
+          { testRunning ? 'Stop' : 'Start' }
+      </button>
     </div>
   )
 }

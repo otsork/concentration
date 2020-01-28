@@ -11,9 +11,9 @@ const calculateReasonableAmountOfSkips = (seconds) => {
   return Math.floor(seconds / 60 * getRangeFromHalfToFull())
 }
 
-export const getStepsToBeSkipped = (seconds) => {
+export const getListOfSkips = (seconds) => {
   const numberOfSkips = calculateReasonableAmountOfSkips(seconds)
-  const getSkip = () => getRandomInt(30, seconds - 30)
+  const getSkip = () => getRandomInt(15, seconds - 15)
   const skipsArray = []
   for (let iter = 0; iter < numberOfSkips; iter++) skipsArray.push(getSkip())
   return skipsArray.sort()
