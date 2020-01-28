@@ -6,9 +6,10 @@ import GameResults from '../components/GameResults'
 
 export default function ManagerContainer() {
   const [gameInProgress, setGameInProgress] = useState(false)
-  const [duration, setDuration] = useState(1) // game duration in minutes
+  const [duration, setDuration] = useState(5) // game duration in minutes
   const [hits, setHits] = useState(0)
   const [misses, setMisses] = useState(0)
+  const [totalSkips, setTotalSkips] = useState(0) 
 
   const durationInSeconds = duration * 60
 
@@ -35,12 +36,14 @@ export default function ManagerContainer() {
           gameInProgress={gameInProgress}
           duration={durationInSeconds}
           addHit={() => setHits(hits + 1)}
-          addMiss={() => setMisses(misses + 1)}/>
+          addMiss={() => setMisses(misses + 1)}
+          setTotalSkipsCb={setTotalSkips} />
       }
       { !gameInProgress &&
         <GameResults
           hits={hits}
-          misses={misses} />
+          misses={misses}
+          totalSkips={totalSkips} />
       }
       <div style={{ position: 'fixed', left: 20, bottom: 40, color: '#1F2633' }}>{ 'hits ' + hits }</div>
       <div style={{ position: 'fixed', left: 20, bottom: 20, color: '#1F2633' }}>{ 'misses ' + misses }</div>

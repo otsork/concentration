@@ -17,14 +17,12 @@ const useStyles = makeStyles ({
 export default function GameResults(props) {
   // define variable that refers to classes and assign it to refer to style object above
   const classes = useStyles()
-  const displayHits = `Number of hits: ${props.hits}`
-  const displayMisses = `Number of misses: ${props.misses}`
+  const displayResult = `Found ${props.hits} of ${props.totalSkips} skips`
 
   return (
     <div className={classes.results}>
       <div>
-        <p>{displayHits}</p>
-        <p>{displayMisses}</p>
+        <p>{displayResult}</p>
       </div>
     </div>
   )

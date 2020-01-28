@@ -37,8 +37,8 @@ When ready, refactor so that "timer" and "userShouldReact"
 and "skipSteps" states are held in the ManagerContainer
 */
 
-export default function Clock({ 
-  gameInProgress, setVisualTimer, duration, addHit, addMiss, endGame
+export default function Clock({
+  duration, addHit, addMiss, endGame, setTotalSkipsCb
 }) {
   const [clickBlocked, setClickBlocked] = useState(false)
   const [timer, setTimer] = useState(0)
@@ -46,7 +46,12 @@ export default function Clock({
   const [userShouldReact, setUserShouldReact] = useState(false)
   const classes = useStyles()
 
-  // useEffect(() => setSkipSteps(getStepsToBeSkipped(duration)), [])
+  useEffect(() => {
+    const steps = getStepsToBeSkipped(duration)
+    setTotalSkipsCb(steps.length)
+    setSkipSteps(steps)
+  }, [duration, setTotalSkipsCb])
+
   useEffect(() => {
     async function flashReactionWindow() {
       setUserShouldReact(true)
