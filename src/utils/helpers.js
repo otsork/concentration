@@ -12,9 +12,9 @@ const calculateReasonableAmountOfSkips = (seconds) => {
 }
 
 export const getListOfSkips = (seconds) => {
-  const numberOfSkips = calculateReasonableAmountOfSkips(seconds)
   const getSkip = () => getRandomInt(15, seconds - 15)
+  const numberOfSkips = calculateReasonableAmountOfSkips(seconds)
   const skipsArray = []
-  for (let iter = 0; iter < numberOfSkips; iter++) skipsArray.push(getSkip())
+  for (let iterator = 0; iterator < numberOfSkips; iterator++) skipsArray.push(getSkip())
   return skipsArray.sort()
 }
