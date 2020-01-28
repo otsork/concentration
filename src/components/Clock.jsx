@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import * as colors from '../constants/colors.js'
 
-import { getStepsToBeSkipped } from '../utils/helpers'
+import { getListOfSkips } from '../utils/helpers'
+
+const REACTION_TIME = 1300
 
 const useStyles = makeStyles({
   wrapper: {
+    display: 'flex',
     width: '100%',
     height: '100%',
-    display: 'flex',
     justifyContent: 'center',
     paddingTop: '50px'
   },
   clockDial: {
     height: '90vh',
     width: '90vh',
-    // borderRadius: '50%',
-    // border: '1px solid yellow'
   },
   dot: {
     position: 'absolute',
@@ -32,62 +32,60 @@ const useStyles = makeStyles({
   }
 })
 
-/*
-When ready, refactor so that "timer" and "userShouldReact"
-and "skipSteps" states are held in the ManagerContainer
-*/
+export default function Clock(props) {
+  const {
+    durationInSeconds,
+    setNumberOfSkips,
+    incrementScore,
+    incrementMisses,
+    endTest
+  } = props
 
-export default function Clock({
-  duration, addHit, addMiss, endGame, setTotalSkipsCb
-}) {
-  const [clickBlocked, setClickBlocked] = useState(false)
   const [timer, setTimer] = useState(0)
-  const [skipSteps, setSkipSteps] = useState([5, 10, 15, 20, 25, 30, 35, 40, 45])
+  const [listOfSkips, setListOfSkips] = useState([5, 10, 15, 20, 25])
+  const [clickingDisabled, setClickingDisabled] = useState(false)
   const [userShouldReact, setUserShouldReact] = useState(false)
   const classes = useStyles()
 
   useEffect(() => {
-    const steps = getStepsToBeSkipped(duration)
-    setTotalSkipsCb(steps.length)
-    setSkipSteps(steps)
-  }, [duration, setTotalSkipsCb])
+    const skips = getListOfSkips(durationInSeconds)
+    setListOfSkips(skips)
+    setNumberOfSkips(skips.length)
+  }, [durationInSeconds, setNumberOfSkips])
 
   useEffect(() => {
+    if (timer >= durationInSeconds) endTest()
     async function flashReactionWindow() {
       setUserShouldReact(true)
-      setTimeout(() => setUserShouldReact(false), 1500)
+      setTimeout(() => setUserShouldReact(false), REACTION_TIME)
     }
-    function skipStep() {
+    function skip() {
       setTimer(timer + 2)
       flashReactionWindow()
     }
     function updateTimer() {
-      if (skipSteps.includes(timer + 1)) skipStep()
+      if (listOfSkips.includes(timer + 1)) skip()
       else setTimer(timer + 1)
     }
-    let second = setInterval(() => updateTimer(), 1000)
+    const second = setInterval(() => updateTimer(), 1000)
     return function cleanup() {
       clearInterval(second)
     }
-  }, [timer, skipSteps])
+  }, [timer, listOfSkips, endTest, durationInSeconds])
 
-  const calculateAngle = timer * 6
-
-  const handleClick = () => {
-    if (!clickBlocked) {
-      if (userShouldReact) addHit()
-      else addMiss()
-      setClickBlocked(true)
-      setTimeout(() => setClickBlocked(false), 1500)
-    }
+  function handleClick() {
+    if (userShouldReact) incrementScore()
+    else incrementMisses()
+      
+    setClickingDisabled(true)
+    setTimeout(() => setClickingDisabled(false), REACTION_TIME)
   }
 
-  if (timer >= duration) endGame()
-
+  const angle = timer * 6
   return (
-    <div className={classes.wrapper} onClick={handleClick}>
+    <div className={classes.wrapper} onClick={clickingDisabled ? undefined : handleClick}>
       <div
-        style={{ transform: `rotate(${calculateAngle}deg)` }}
+        style={{ transform: `rotate(${angle}deg)` }}
         className={classes.clockDial}>
         <div className={`${classes.dot} ${userShouldReact && classes.dotGreen}`} />
       </div>

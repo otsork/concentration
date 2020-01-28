@@ -2,50 +2,50 @@ import React, { useState } from 'react'
 import Background from '../components/Background'
 import Clock from '../components/Clock'
 import Menu from '../components/Menu'
-import GameResults from '../components/GameResults'
+import Results from '../components/Results'
 
 export default function ManagerContainer() {
-  const [gameInProgress, setGameInProgress] = useState(false)
-  const [duration, setDuration] = useState(5) // game duration in minutes
-  const [hits, setHits] = useState(0)
+  const [testRunning, setTestRunning] = useState(false)
+  const [durationInMinutes, setDurationInMinutes] = useState(2) // game durationInMinutes in minutes
+  const [score, setScore] = useState(0)
   const [misses, setMisses] = useState(0)
-  const [totalSkips, setTotalSkips] = useState(0) 
+  const [numberOfSkips, setNumberOfSkips] = useState(0) 
 
-  const durationInSeconds = duration * 60
+  const durationInSeconds = durationInMinutes * 60
 
-  function startGame() {
-    setGameInProgress(true)
-    setHits(0)
+  function startTest() {
+    setTestRunning(true)
+    setScore(0)
     setMisses(0)
   }
-  function stopGame() {
-    setGameInProgress(false)
+  function stopTest() {
+    setTestRunning(false)
   }
-  function toggleGame() {
-    return gameInProgress ? stopGame() : startGame()
+  function toggleTestRunning() {
+    return testRunning ? stopTest() : startTest()
   }
 
   return (
     <Background>
       <Menu
-        gameInProgress={gameInProgress}
-        toggleGame={toggleGame} />
-      { gameInProgress &&
+        testRunning={testRunning}
+        toggleTestRunning={toggleTestRunning} />
+      {
+        testRunning ?
         <Clock
-          endGame={() => setGameInProgress(false)}
-          gameInProgress={gameInProgress}
-          duration={durationInSeconds}
-          addHit={() => setHits(hits + 1)}
-          addMiss={() => setMisses(misses + 1)}
-          setTotalSkipsCb={setTotalSkips} />
-      }
-      { !gameInProgress &&
-        <GameResults
-          hits={hits}
+          testRunning={testRunning}
+          durationInSeconds={durationInSeconds}
+          setNumberOfSkips={setNumberOfSkips}
+          incrementScore={async () => setScore(score + 1)}
+          incrementMisses={async () => setMisses(misses + 1)}
+          endTest={() => setTestRunning(false)} />
+        :
+        <Results
+          score={score}
           misses={misses}
-          totalSkips={totalSkips} />
+          numberOfSkips={numberOfSkips} />
       }
-      <div style={{ position: 'fixed', left: 20, bottom: 40, color: '#1F2633' }}>{ 'hits ' + hits }</div>
+      <div style={{ position: 'fixed', left: 20, bottom: 40, color: '#1F2633' }}>{ 'score ' + score }</div>
       <div style={{ position: 'fixed', left: 20, bottom: 20, color: '#1F2633' }}>{ 'misses ' + misses }</div>
     </Background>
   )
