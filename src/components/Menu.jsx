@@ -17,6 +17,8 @@ const styles = makeStyles({
     height: '30px',
     fontSize: '20px',
     zIndex: 999,
+    borderRadius: '5px',
+    backgroundColor: colors.white
   },
   buttonDark: {
     backgroundColor: colors.black,

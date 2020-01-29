@@ -6,7 +6,7 @@ import Results from '../components/Results'
 
 export default function ManagerContainer() {
   const [testRunning, setTestRunning] = useState(false)
-  const [durationInMinutes, setDurationInMinutes] = useState(2) // game durationInMinutes in minutes
+  const [durationInMinutes, setDurationInMinutes] = useState(1) // game durationInMinutes in minutes
   const [score, setScore] = useState(0)
   const [misses, setMisses] = useState(0)
   const [numberOfSkips, setNumberOfSkips] = useState(0) 
@@ -33,7 +33,6 @@ export default function ManagerContainer() {
       {
         testRunning ?
         <Clock
-          testRunning={testRunning}
           durationInSeconds={durationInSeconds}
           setNumberOfSkips={setNumberOfSkips}
           incrementScore={async () => setScore(score + 1)}

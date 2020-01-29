@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import * as colors from '../constants/colors.js'
+import { useOneSecondInterval } from '../utils/hooks'
 
 import { getListOfSkips } from '../utils/helpers'
 
@@ -33,6 +34,7 @@ const useStyles = makeStyles({
 })
 
 export default function Clock(props) {
+  const classes = useStyles()
   const {
     durationInSeconds,
     setNumberOfSkips,
@@ -45,7 +47,8 @@ export default function Clock(props) {
   const [listOfSkips, setListOfSkips] = useState([5, 10, 15, 20, 25])
   const [clickingDisabled, setClickingDisabled] = useState(false)
   const [userShouldReact, setUserShouldReact] = useState(false)
-  const classes = useStyles()
+
+  if (timer >= durationInSeconds) endTest()
 
   useEffect(() => {
     const skips = getListOfSkips(durationInSeconds)
@@ -53,32 +56,30 @@ export default function Clock(props) {
     setNumberOfSkips(skips.length)
   }, [durationInSeconds, setNumberOfSkips])
 
-  useEffect(() => {
-    if (timer >= durationInSeconds) endTest()
-    async function flashReactionWindow() {
-      setUserShouldReact(true)
-      setTimeout(() => setUserShouldReact(false), REACTION_TIME)
-    }
-    function skip() {
-      setTimer(timer + 2)
-      flashReactionWindow()
-    }
-    function updateTimer() {
-      if (listOfSkips.includes(timer + 1)) skip()
-      else setTimer(timer + 1)
-    }
-    const second = setInterval(() => updateTimer(), 1000)
-    return function cleanup() {
-      clearInterval(second)
-    }
-  }, [timer, listOfSkips, endTest, durationInSeconds])
+  useOneSecondInterval(() => {
+    updateTimer()
+  }, 1000)
+
+  function flashReactionWindow() {
+    setUserShouldReact(true)
+    setTimeout(() => setUserShouldReact(false), REACTION_TIME)
+  }
+  function skip() {
+    setTimer(timer => timer + 2)
+    flashReactionWindow()
+  }
+  function updateTimer() {
+    if (listOfSkips.includes(timer + 1)) skip()
+    else setTimer(timer + 1)
+  }
 
   function handleClick() {
-    if (userShouldReact) incrementScore()
-    else incrementMisses()
-      
-    setClickingDisabled(true)
-    setTimeout(() => setClickingDisabled(false), REACTION_TIME)
+    if (!userShouldReact) incrementMisses()
+    else {
+      incrementScore()
+      setClickingDisabled(true)
+      setTimeout(() => setClickingDisabled(false), REACTION_TIME)
+    }
   }
 
   const angle = timer * 6
