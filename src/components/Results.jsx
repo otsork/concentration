@@ -1,14 +1,12 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
+import * as colors from '../constants/colors.js'
 
 const useStyles = makeStyles ({
   results: {
-    width: '50%',
-    height: '50%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: 'white'
+    width: '15vw',
+    height: '20vh',
+    color: colors.white
   }
 })
 
