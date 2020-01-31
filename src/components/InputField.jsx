@@ -1,16 +1,17 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import * as colors from '../constants/colors.js'
-import ManagerContainer from '../containers/ManagerContainer.jsx'
 
 const useStyles = makeStyles({
   input: {
     color: colors.white,
-    marginBottom: "15vh"
+    marginBottom: '100px',
+    textAlign: 'center'
   },
   numberField: {
-    borderRadius: "4px",
-    marginLeft: "3vw"
+    borderRadius: '4px',
+    marginLeft: '85px',
+    marginRight: '85px'
   },
   button: {
     display: 'flex',
@@ -21,8 +22,9 @@ const useStyles = makeStyles({
     zIndex: 999,
     borderRadius: '5px',
     backgroundColor: colors.white,
-    marginTop: "2vh",
-    marginLeft: "2.5vw"
+    marginTop: '20px',
+    marginLeft: '75px',
+    marginRight: '75px'
   }
 })
 

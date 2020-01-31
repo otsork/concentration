@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import Background from '../components/Background'
 import Clock from '../components/Clock'
 import Menu from '../components/Menu'

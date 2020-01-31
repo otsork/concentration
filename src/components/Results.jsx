@@ -6,7 +6,8 @@ const useStyles = makeStyles ({
   results: {
     width: '15vw',
     height: '20vh',
-    color: colors.white
+    color: colors.white,
+    textAlign: 'center'
   }
 })
 
