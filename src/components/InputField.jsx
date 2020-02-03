@@ -4,40 +4,36 @@ import * as colors from '../constants/colors.js'
 
 const useStyles = makeStyles({
   input: {
-    color: colors.white,
-    marginBottom: '100px',
-    textAlign: 'center'
+    color: colors.white
   },
   numberField: {
     borderRadius: '4px',
-    marginLeft: '85px',
-    marginRight: '85px'
-  },
-  button: {
-    display: 'flex',
-    justifyContent: 'center',
-    width: '80px',
-    height: '25px',
-    fontSize: '16px',
-    zIndex: 999,
-    borderRadius: '5px',
-    backgroundColor: colors.white,
-    marginTop: '20px',
-    marginLeft: '75px',
-    marginRight: '75px'
+    width: '40px',
+    marginLeft: '25px'
   }
 })
 
-export default function InputField() {
+export function InputField(props) {
   const classes = useStyles()
 
-return (
-  <div className={classes.input}>
-    <form>
-      <p>Test duration (minutes):</p>
-      <input className={classes.numberField} type="number" min="1" max="30" />
-      <button className={classes.button}>Set</button>
-    </form>
-  </div>
+
+  function setInputValue(event) {
+    event.persist()
+    const inputValue = event.target.valueAsNumber
+    if (inputValue > 30) props.setDuration(30)
+    else if (inputValue < 5 || !inputValue) props.setDuration(5)
+    else props.setDuration(inputValue)
+  }
+  return (
+    <div className={classes.input}>
+      <p>Test duration (min):</p>
+      <input
+        value={props.duration}
+        className={classes.numberField} 
+        type="number"
+        onChange={(event) => setInputValue(event)} />
+    </div>
   )
 }
+
+export default InputField
