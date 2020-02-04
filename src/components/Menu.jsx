@@ -7,7 +7,7 @@ const styles = makeStyles({
   menuWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'spaceBetween',
+    justifyContent: 'space-between',
     position: 'fixed',
     top: '10px',
     left: '10px',
