@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import * as colors from '../constants/colors.js'
+import InputField from './InputField'
 
 const styles = makeStyles({
   menuWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     position: 'fixed',
     top: '10px',
@@ -32,7 +34,7 @@ const styles = makeStyles({
 
 export default function Menu(props) {
   const classes = styles()
-  const { testRunning, toggleTestRunning } = props
+  const { testRunning, toggleTestRunning, setDurationInMinutes, durationInMinutes } = props
 
   return (
     <div className={classes.menuWrapper}>
@@ -41,6 +43,7 @@ export default function Menu(props) {
         onClick={toggleTestRunning}>
           { testRunning ? 'Stop' : 'Start' }
       </button>
+      {!testRunning && <InputField duration={durationInMinutes} setDuration={setDurationInMinutes} />}
     </div>
   )
 }
