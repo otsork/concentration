@@ -28,9 +28,6 @@ const useStyles = makeStyles({
     backgroundColor: colors.white,
     borderRadius: '50%',
   },
-  dotGreen: {
-    backgroundColor: colors.green
-  }
 })
 
 export default function Clock(props) {
@@ -59,18 +56,20 @@ export default function Clock(props) {
   useOneSecondInterval(() => {
     updateTimer()
   }, 1000)
-
-  function flashReactionWindow() {
-    setUserShouldReact(true)
-    setTimeout(() => setUserShouldReact(false), REACTION_TIME)
+  
+  function updateTimer() {
+    if (listOfSkips.includes(timer + 1)) skip()
+    else setTimer(timer + 1)
   }
+
   function skip() {
     setTimer(timer => timer + 2)
     flashReactionWindow()
   }
-  function updateTimer() {
-    if (listOfSkips.includes(timer + 1)) skip()
-    else setTimer(timer + 1)
+
+  function flashReactionWindow() {
+    setUserShouldReact(true)
+    setTimeout(() => setUserShouldReact(false), REACTION_TIME)
   }
 
   function handleClick() {
@@ -88,7 +87,7 @@ export default function Clock(props) {
       <div
         style={{ transform: `rotate(${angle}deg)` }}
         className={classes.clockDial}>
-        <div className={`${classes.dot} ${userShouldReact && classes.dotGreen}`} />
+        <div className={classes.dot} />
       </div>
     </div>
   )

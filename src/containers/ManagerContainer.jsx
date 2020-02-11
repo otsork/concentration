@@ -6,7 +6,7 @@ import Results from '../components/Results'
 
 export default function ManagerContainer() {
   const [testRunning, setTestRunning] = useState(false)
-  const [durationInMinutes, setDurationInMinutes] = useState(1) // game durationInMinutes in minutes
+  const [durationInMinutes, setDurationInMinutes] = useState(30)
   const [score, setScore] = useState(0)
   const [misses, setMisses] = useState(0)
   const [numberOfSkips, setNumberOfSkips] = useState(0) 
@@ -25,6 +25,7 @@ export default function ManagerContainer() {
     return testRunning ? stopTest() : startTest()
   }
 
+  console.log(durationInMinutes)
   return (
     <Background>
       <Menu
@@ -40,14 +41,12 @@ export default function ManagerContainer() {
           incrementScore={async () => setScore(score + 1)}
           incrementMisses={async () => setMisses(misses + 1)}
           endTest={() => setTestRunning(false)} />
-          :
-          <Results 
-            score={score}
-            misses={misses}
-            numberOfSkips={numberOfSkips} />
+        :
+        <Results 
+          score={score}
+          misses={misses}
+          numberOfSkips={numberOfSkips} />
       }
-      <div style={{ position: 'fixed', left: 20, bottom: 40, color: '#1F2633' }}>{ 'score ' + score }</div>
-      <div style={{ position: 'fixed', left: 20, bottom: 20, color: '#1F2633' }}>{ 'misses ' + misses }</div>
     </Background>
   )
 }

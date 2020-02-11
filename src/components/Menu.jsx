@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import * as colors from '../constants/colors.js'
 import InputField from './InputField'
@@ -10,7 +10,7 @@ const styles = makeStyles({
     justifyContent: 'space-between',
     position: 'fixed',
     top: '10px',
-    left: '10px',
+    left: '10px'
   },
   button: {
     display: 'flex',
@@ -20,7 +20,9 @@ const styles = makeStyles({
     fontSize: '20px',
     zIndex: 999,
     borderRadius: '5px',
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
+    cursor: 'pointer',
+    marginBottom: '20px'
   },
   buttonDark: {
     backgroundColor: colors.black,
