@@ -45,7 +45,7 @@ export default function Menu(props) {
         onClick={toggleTestRunning}>
           { testRunning ? 'Stop' : 'Start' }
       </button>
-      {!testRunning && <InputField duration={durationInMinutes} setDuration={setDurationInMinutes} />}
+      {!testRunning && <InputField durationInMinutes={durationInMinutes} setDurationInMinutes={setDurationInMinutes} />}
     </div>
   )
 }

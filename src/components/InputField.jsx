@@ -40,7 +40,7 @@ export function InputField(props) {
   function setInputValue(event) {
     event.persist()
     if (event.key === 'Enter' || event.type === 'blur') {
-      props.setDuration(allowMinMaxNumber(5, 60, event.target.value))
+      props.setDurationInMinutes(allowMinMaxNumber(5, 60, event.target.value))
       setEditing(false)
     }
   }
@@ -51,13 +51,13 @@ export function InputField(props) {
         <input
           id='inputField'
           type="number"
-          defaultValue={props.duration}
+          defaultValue={props.durationInMinutes}
           className={`${classes.inputField} ${classes.editable}`}
           onBlur={(event) => setInputValue(event)}
           onKeyDown={(event) => setInputValue(event)} />
       )
     }
-    return <div className={`${classes.text} ${classes.editable}`}>{props.duration}</div>
+    return <div className={`${classes.text} ${classes.editable}`}>{props.durationInMinutes}</div>
   }
 
   return (

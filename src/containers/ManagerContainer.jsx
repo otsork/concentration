@@ -18,14 +18,15 @@ export default function ManagerContainer() {
     setScore(0)
     setMisses(0)
   }
+
   function stopTest() {
     setTestRunning(false)
   }
+
   function toggleTestRunning() {
     return testRunning ? stopTest() : startTest()
   }
 
-  console.log(durationInMinutes)
   return (
     <Background>
       <Menu
