@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     backgroundColor: colors.black,
     justifyContent: 'center',
     alignItems: 'center',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   text: {
     position: 'absolute',

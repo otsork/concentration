@@ -13,7 +13,8 @@ const useStyles = makeStyles({
     width: '100%',
     height: '100%',
     justifyContent: 'center',
-    paddingTop: '50px'
+    paddingTop: '50px',
+    cursor: 'none'
   },
   clockDial: {
     height: '90vh',

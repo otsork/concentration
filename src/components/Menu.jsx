@@ -10,7 +10,7 @@ const styles = makeStyles({
     justifyContent: 'space-between',
     position: 'fixed',
     top: '10px',
-    left: '10px'
+    left: '10px',
   },
   button: {
     display: 'flex',
