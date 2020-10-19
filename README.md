@@ -1,4 +1,10 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I started this project to teach my friend some React. Its a test to measure the concentration ability of a person.
+A white ball moves in a circle pattern (like a clocks hand follows the edges of a clock dial)
+and whenever the ball moves 2 steps instead of one, click the screen.
+If you click too late it will be marked as a miss and if you click on time it will be marked as a score.
+After the test you will be told how many steps you missed or hit.
+
+Currently there are no tests to it, but I might add them later
 
 ## Available Scripts
 
